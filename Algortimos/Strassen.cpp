@@ -392,3 +392,6 @@ int main() {
     return 0;
 }
 
+// Código sacado de:
+// GeeksforGeeks. (n.d.). *Strassen’s Matrix Multiplication Algorithm | Implementation*. Recuperado 31 de Agosto, 2024, de https://www.geeksforgeeks.org/strassens-matrix-multiplication-algorithm-implementation/
+// Fue ligeramente modificado para abrir y procesar archivos .txt.

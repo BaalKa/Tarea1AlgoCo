@@ -41,6 +41,6 @@ def random_matrix(rows, columns):
 # random_generate(300000)
 # semiorder(300000, 0.65)
 # partially(300000, 0.7)
-# random_matrix(1000, 1000)           # cuadrada-1 y 2-(cúbica)
-random_matrix(1000, 900)       # rectangular-3-(cúbica)
-# random_matrix(800, 900)       # rectangular-4-(cúbica)
+# random_matrix(1000, 1000)
+# random_matrix(1000, 900)
+
