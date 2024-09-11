@@ -6,32 +6,41 @@
 
 using namespace std;
 
-// Función para imprimir un vector
-void printVector(vector<int>& arr) {
-    cout << "Arreglo ordenado:" << endl;
-    for (int i = 0; i < arr.size(); i++)
-        cout << arr[i] << " ";
-    cout << endl;
+// Función para guardar el vector ordenado en un archivo
+void saveArrayToFile(const vector<int>& arr, const string& filename) {
+    ofstream archivo("../DataSets/arreglos/" + filename + ".txt");
+    if (archivo.is_open()) {
+        for (int num : arr) {
+            archivo << num << endl;
+        }
+        archivo.close();
+    } else {
+        cout << "No se pudo abrir el archivo para guardar." << endl;
+    }
 }
 
-// Probar función sort
+
 int main() {
     vector<int> numeros;
     int numero;
     size_t tamano;
 
-  // Elegir el conjunto de datos a ordenar
+    // Elegir el conjunto de datos a ordenar
     int eleccion;
     cout << "Elija el DataSet a ordenar" << endl;
     cout << "(1) Lista aleatoria, (2) Lista semiordenada o (3) Lista parcialmente ordenada" << endl;
     cin >> eleccion;
+
+    string archivoSalida;
+    cout << "Ingrese el nombre del archivo para guardar la lista ordenada (ej. resultado): " << endl;
+    cin >> archivoSalida;
 
     bool ordenar = false;
 
     // Abrir y guardar contenido de archivo txt seleccionado
     switch (eleccion) {
     case 1: {
-        ifstream archivo("../DataSets/random_generate.txt");
+        ifstream archivo("../DataSets/arreglos/random_generate.txt");
 
         while (archivo >> numero) {
             numeros.push_back(numero);
@@ -43,7 +52,7 @@ int main() {
     }
 
     case 2: {
-        ifstream archivo("../DataSets/semiorder.txt");
+        ifstream archivo("../DataSets/arreglos/semiorder.txt");
 
         while (archivo >> numero) {
             numeros.push_back(numero);
@@ -55,7 +64,7 @@ int main() {
     }
     
     case 3: {
-        ifstream archivo("../DataSets/partially.txt");
+        ifstream archivo("../DataSets/arreglos/partially.txt");
 
         while (archivo >> numero) {
             numeros.push_back(numero);
@@ -84,12 +93,9 @@ int main() {
         cout << "Tiempo de ejecucion del algoritmo: " << duration_ms.count() << " milisegundos" << endl;
         cout << " " << endl;
 
-        // Imprimir el arreglo ordenado
-        printVector(numeros);
+        // Guardar el arreglo ordenado en el archivo especificado
+        saveArrayToFile(numeros, archivoSalida);
+        cout << "Lista ordenada guardada en el archivo: " << archivoSalida << ".txt" << endl;
     }
     return 0;
 }
-
-// Código sacado de:
-// GeeksforGeeks. (n.d.). *Internal details of std::sort() in C++*. Recuperado 31 de Agosto, 2024, de https://www.geeksforgeeks.org/internal-details-of-stdsort-in-c/
-// Fue ligeramente modificado para abrir y procesar archivos .txt.

@@ -19,12 +19,17 @@ void selectionSort(vector<int>& vec, int n) {
     }
 }
 
-// Función para imprimir el arreglo
-void printArray(const vector<int>& vec, int n) {
-    cout << "Arreglo ordenado:" << endl;
-    for (int i = 0; i < n; i++)
-        cout << vec[i] << " ";
-    cout << endl;
+// Función para guardar el arreglo ordenado en un archivo
+void saveArrayToFile(const vector<int>& vec, const string& filename) {
+    ofstream archivo("../DataSets/arreglos/" + filename + ".txt");
+    if (archivo.is_open()) {
+        for (int num : vec) {
+            archivo << num << endl;
+        }
+        archivo.close();
+    } else {
+        cout << "No se pudo abrir el archivo para guardar." << endl;
+    }
 }
 
 // Prueba de la función
@@ -39,12 +44,16 @@ int main() {
     cout << "(1) Lista aleatoria, (2) Lista semiordenada o (3) Lista parcialmente ordenada" << endl;
     cin >> eleccion;
 
+    string archivoSalida;
+    cout << "Ingrese el nombre del archivo para guardar la lista ordenada (ej. resultado): " << endl;
+    cin >> archivoSalida;
+
     bool ordenar = false;
 
     // Abrir y guardar contenido de archivo txt seleccionado
     switch (eleccion) {
     case 1: {
-        ifstream archivo("../DataSets/random_generate.txt");
+        ifstream archivo("../DataSets/arreglos/random_generate.txt");
 
         while (archivo >> numero) {
             numeros.push_back(numero);
@@ -56,7 +65,7 @@ int main() {
     }
 
     case 2: {
-        ifstream archivo("../DataSets/semiorder.txt");
+        ifstream archivo("../DataSets/arreglos/semiorder.txt");
 
         while (archivo >> numero) {
             numeros.push_back(numero);
@@ -68,7 +77,7 @@ int main() {
     }
     
     case 3: {
-        ifstream archivo("../DataSets/partially.txt");
+        ifstream archivo("../DataSets/arreglos/partially.txt");
 
         while (archivo >> numero) {
             numeros.push_back(numero);
@@ -84,7 +93,7 @@ int main() {
         break;
     }
 
-    if (ordenar == true) {
+    if (ordenar) {
         auto start = chrono::high_resolution_clock::now();
         selectionSort(numeros, tamano);
         auto end = chrono::high_resolution_clock::now();
@@ -96,10 +105,12 @@ int main() {
         cout << " " << endl;
         cout << "Tiempo de ejecucion del algoritmo: " << duration_ms.count() << " milisegundos" << endl;
         cout << " " << endl;
-
-        // Imprimir el arreglo ordenado
-        printArray(numeros, tamano);
+        
+        // Guardar el arreglo ordenado en el archivo especificado
+        saveArrayToFile(numeros, archivoSalida);
+        cout << "Lista ordenada guardada en el archivo: " << archivoSalida << ".txt" << endl;
     }
+
     return 0;
 }
 
